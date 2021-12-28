@@ -13,8 +13,8 @@ function ts {
 
 #-----------------------------------------------------------------------------------------------------------------------
 
-if [ "$IPV6" = "yes" ]; then
-  ip6=`ifconfig | grep inet6 | grep -i global | awk -F " " '{print $3}' | awk -F "/" '{print $1}'`
+if [ "$IPV6" = "yes" ]; then  
+  ip6=`ip -6 addr show $INTERFACE_TO_USE | grep inet6 | awk -F '[ \t]+|/' '{print $3}' | grep -v ^::1 | grep -v ^fe80 | head -n 1`
   ip4=
   echo "IP address is ${ip6}"
 else
