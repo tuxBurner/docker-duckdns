@@ -13,18 +13,20 @@ function ts {
 
 #-----------------------------------------------------------------------------------------------------------------------
 
-if [ "$IPV6" = "yes" ]; then  
-  ip6=`ip -6 addr show $INTERFACE_TO_USE | grep inet6 | awk -F '[ \t]+|/' '{print $3}' | grep -v ^::1 | grep -v ^fe80 | head -n 1`
-  ip4=
-  echo "IP address is ${ip6}"
-else
-  echo "Will detect ipv4 automatically"
-  ip6=
-  ip4=
-fi
 
 while true
 do
+
+  if [ "$IPV6" = "yes" ]; then  
+    ip6=`bash -c "$IPV6_SCRIPT"`
+    ip4=
+    echo "$(ts) IP6 address is ${ip6}"
+  else
+    echo "Will detect ipv4 automatically"
+    ip6=
+    ip4=
+  fi
+
   RESPONSE=$(curl -S -s "${endpoint}?domains=$DOMAINS&token=$TOKEN&ip=${ip4}&ipv6=${ip6}" 2>&1)
 
   if [ "$RESPONSE" = "OK" ]

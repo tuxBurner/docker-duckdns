@@ -38,6 +38,7 @@ print_config() {
   echo "  INTERVAL=$INTERVAL"
   echo "  IPV6=$IPV6"
   echo "  INTERFACE_TO_USE=$INTERFACE_TO_USE"
+  echo "  IPV6_SCRIPT=$IPV6_SCRIPT"
 }
 
 ########################################################################################################################
